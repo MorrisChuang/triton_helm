@@ -47,6 +47,9 @@ spec:
         release: {{ .Release.Name }}
 
     spec:
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.imageName }}"
@@ -78,7 +81,3 @@ spec:
             httpGet:
               path: /api/health/ready
               port: http
-
-          securityContext:
-            runAsUser: 1000
-            fsGroup: 1000
