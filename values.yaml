@@ -29,7 +29,7 @@ replicaCount: 1
 image:
   imageName: nvcr.io/nvidia/tritonserver:21.02-py3
   pullPolicy: IfNotPresent
-  modelRepositoryPath: as://account_name/container_name/path/to/model/repository
+  modelRepositoryPath: /path/to/model/repository
   numGpus: 1
 
 service:
