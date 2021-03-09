@@ -57,7 +57,11 @@ spec:
               nvidia.com/gpu: {{ .Values.image.numGpus }}
 
           args: ["tritonserver", "--model-store={{ .Values.image.modelRepositoryPath }}"]
-
+          env:
+            - name: AZURE_STORAGE_ACCOUNT
+              value: azure_storage_account_name
+            - name: AZURE_STORAGE_KEY
+              value: azure_storage_account_key
           ports:
             - containerPort: 8000
               name: http
