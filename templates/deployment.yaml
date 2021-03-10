@@ -52,8 +52,9 @@ spec:
         fsGroup: 1000
       volumes:
         - name: nfs-volume-for-model-repository
-          persistentVolumeClaim:
-            claimName: nfs
+          nfs:
+            server: {{ .Values.nfs.server }}
+            path: {{ .Values.nfs.path }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.imageName }}"
@@ -65,8 +66,13 @@ spec:
 
           volumeMounts:
             - name: nfs-volume-for-model-repository
-              mountPath: /model-repository
-          args: ["tritonserver", "--model-store={{ .Values.image.modelRepositoryPath }}"]
+              mountPath: "{{ .Values.image.modelRepositoryPath }}"
+
+          command: ["tritonserver"]
+          args: [
+            "--strict-model-config", "false",
+            "--model-repository", "{{ .Values.image.modelRepositoryPath }}"
+          ]
 
           ports:
             - containerPort: 8000

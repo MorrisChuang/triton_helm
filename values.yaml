@@ -29,8 +29,12 @@ replicaCount: 1
 image:
   imageName: nvcr.io/nvidia/tritonserver:21.02-py3
   pullPolicy: IfNotPresent
-  modelRepositoryPath: /path/to/model/repository
+  modelRepositoryPath: /model-repository
   numGpus: 1
 
 service:
   type: LoadBalancer
+
+nfs:
+  server: 10.1.0.30
+  path: /datadrive/srv/nfs/triton/model-repository
