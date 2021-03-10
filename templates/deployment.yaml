@@ -50,6 +50,10 @@ spec:
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
+      volumes:
+        - name: nfs-volume-for-model-repository
+          persistentVolumeClaim:
+            claimName: nfs
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.imageName }}"
@@ -59,6 +63,9 @@ spec:
             limits:
               nvidia.com/gpu: {{ .Values.image.numGpus }}
 
+          volumeMounts:
+            - name: nfs-volume-for-model-repository
+              mountPath: /model-repository
           args: ["tritonserver", "--model-store={{ .Values.image.modelRepositoryPath }}"]
 
           ports:
