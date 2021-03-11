@@ -18,4 +18,12 @@ spec:
         backend:
           serviceName: {{ template "triton-inference-server.fullname" . }}
           servicePort: 8000
+      - path: /triton/grpc(/|$)(.*)
+        backend:
+          serviceName: {{ template "triton-inference-server.fullname" . }}
+          servicePort: 8001
+      - path: /triton/metrics(/|$)(.*)
+        backend:
+          serviceName: {{ template "triton-inference-server.fullname" . }}
+          servicePort: 8002
 {{ end }}
